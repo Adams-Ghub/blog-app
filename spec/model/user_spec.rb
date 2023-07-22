@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject { User.create(name: 'John', photo: 'photo link', bio: 'Great person', post_counter: 0) }
 
-
   it 'validates name' do
     subject.name = nil
     expect(subject).to_not be_valid
