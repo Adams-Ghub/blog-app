@@ -1,1 +1,25 @@
-<h1> here is a particular post for a given user  </h1>
+
+<div class='specific-post-container' >
+   <div class='specific-post-header-body-container'>
+        <div class='specific-post-header'>
+            <div>
+                <%=@post.title%> by  <%=@user.name%>
+            </div>
+            <div class='likes-comments-count-specific-post'>
+                comments:<%=@post.comments_counter%>, likes:<%=@post.likes_counter%>
+            </div>
+        </div>
+        <p>
+            <%=@post.text %>
+        </p>
+   </div>
+    <div class='specific-post-comments-container'>
+        <%if(@post.comments.empty?) %>
+            <p>No comments available</p>
+        <%else%>
+            <%@post.comments.each do |comment| %>
+                <%=render partial:'shared/comment_card', locals:{comment:comment, user:comment.user}%>
+            <%end%>
+        <%end%>
+    </div>
+</div>
