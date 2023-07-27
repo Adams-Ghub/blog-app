@@ -1,23 +1,12 @@
 class PostsController < ApplicationController
-  def index; end
-
-  def show; end
-
-  def create
-    @post = Post.new(post_params)
-    @post.save
-    redirect_to posts_path
+  def index
+    @user = User.find(params[:user_id])
+    @posts = @user.posts.includes(:comments)
+    # puts @posts
   end
 
-  def destroy
+  def show
+    @user = User.find(params[:user_id])
     @post = Post.find(params[:id])
-    @post.destroy
-    redirect_to posts_path
-  end
-
-  private
-
-  def post_params
-    paramst.require(:post).permit(:author_id)
   end
 end
