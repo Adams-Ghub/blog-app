@@ -1,3 +1,16 @@
-<h1>
-    here is a list of posts for a given user
-</h1>
+
+<div class='user-posts-list-container'>    
+     <%=render partial:'shared/user_card', locals:{user:@user}%>
+     <section>
+       <% @posts.each_with_index do|post, index| %>
+        <a href='posts/<%=post.id%>' class='link-to-specific-post'>
+            <%=render partial:'shared/post_card', locals:{post:post,index:index} %>
+            <div class='post-comments-container'>
+                <%post.comments_per_post.each do |comment| %>
+                    <%=render partial:'shared/comment_card', locals:{comment:comment,user:@user} %> 
+                <%end%>
+            </div>           
+        </a>        
+        <%end%>
+     </section>   
+</div>
