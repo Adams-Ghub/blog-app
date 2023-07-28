@@ -1,0 +1,10 @@
+<div class="add-post-form-container">
+<h3>Post creation form</h3>
+<%= bootstrap_form_with model: @post, url: user_posts_path(@user) do |f| %>
+  <div class="form_container">   
+    <%= f.text_field :title, required: true, autofocus: true, class: "form_input" %>    
+    <%= f.text_area :text, required: true, autofocus: true, class: "form_input" %>
+    <%= f.submit "Create Post", class: "create_button" %>
+  </div>
+<% end %>
+</div>
