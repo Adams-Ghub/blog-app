@@ -94,9 +94,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 1em;
 }
 
-.see-all-post-button {
+.see-all-post-button,
+.add-post-button {
   background-color: transparent;
   border: solid 1px #000;
   text-decoration: none;
