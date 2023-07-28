@@ -12,6 +12,11 @@
         <p>
             <%=@post.text %>
         </p>
+       <div class='like-button-container'>
+            <%= form_with url: user_post_likes_path(@post.author_id, @post) do |f| %>
+                <%= f.submit 'Like', class: 'like_button' %>
+            <% end %>
+       </div>
    </div>
     <div class='specific-post-comments-container'>
         <%if(@post.comments.empty?) %>
@@ -21,5 +26,7 @@
                 <%=render partial:'shared/comment_card', locals:{comment:comment, user:comment.user}%>
             <%end%>
         <%end%>
+    
+        <div><%= link_to "Add Comment", new_user_post_comment_path(@post.author_id, @post.id) %></div>
     </div>
 </div>
