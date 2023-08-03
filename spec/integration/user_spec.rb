@@ -54,7 +54,7 @@ RSpec.describe User, type: :system do
     person_two.save!
   end
 
-  context 'index test' do
+  context 'index page test' do
     before { visit root_path }
     it 'shows usernames of all users' do
       expect(page).to have_content(person_one.name)
@@ -84,11 +84,7 @@ RSpec.describe User, type: :system do
   end
 
   context 'show page tests' do
-    subject { person_two }
     before do
-      post_one
-      post_two
-      post_three
       visit user_path person_two
     end
 
@@ -96,25 +92,34 @@ RSpec.describe User, type: :system do
       profile_pic = find('.profile-image')
 
       expect(profile_pic).to be_visible
-      expect(profile_pic['src']).to eq subject.photo
+      expect(profile_pic['src']).to eq person_two.photo
     end
 
     it 'display the username of a user' do
-      expect(page).to have_content(subject.name)
+      expect(page).to have_content(person_two.name)
     end
 
     it 'display number of posts made by a user' do
-      expect(page).to have_content subject.post_counter
+      expect(page).to have_content person_two.post_counter
     end
 
     it 'display bio of a user' do
-      expect(page).to have_content subject.bio
+      expect(page).to have_content person_two.bio
+    end
+  end
+
+  context 'show page test' do
+    before do
+      post_one
+      post_two
+      post_three
+      visit user_path person_two
     end
 
     it 'displays user\'s first three post' do
-      expect(page).to have_content subject.posts[0].title
-      expect(page).to have_content subject.posts[1].title
-      expect(page).to have_content subject.posts[2].title
+      expect(page).to have_content person_two.posts[0].title
+      expect(page).to have_content person_two.posts[1].title
+      expect(page).to have_content person_two.posts[2].title
     end
 
     it 'displays see all posts button' do
@@ -132,7 +137,7 @@ RSpec.describe User, type: :system do
     end
 
     it 'redirects to the post index page when the see all Posts button is clicked' do
-      all_posts_url = "#{Capybara.app_host}/users/#{subject.id}/posts"
+      all_posts_url = "#{Capybara.app_host}/users/#{person_two.id}/posts"
       click_link 'see all posts'
 
       expect(page).to have_current_path(all_posts_url)

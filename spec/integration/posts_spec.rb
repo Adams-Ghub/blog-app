@@ -113,7 +113,7 @@ RSpec.describe Post, type: :system do
       expect(page).to have_content(first_user.posts.first.title)
     end
 
-    it 'diplays part of the post\'s body' do
+    it 'displays part of the post\'s body' do
       expect(page).to have_content(first_user.posts.first.text[0..100])
     end
 
@@ -121,6 +121,10 @@ RSpec.describe Post, type: :system do
       expect(page).to have_content(first_user.posts.first.comments.first.user.name)
       expect(page).to have_content(first_user.posts.first.comments.first.text[0..30])
     end
+  end
+
+  context 'Post index test' do
+    before { visit user_posts_path first_user }
 
     it 'displays pagination when there are more posts' do
       next_page_url = user_posts_path(first_user, page: 2)
