@@ -91,8 +91,7 @@ RSpec.describe Post, type: :system do
     comment_two
   end
 
-  context 'Post index page test' do   
-
+  context 'Post index page test' do
     before { visit user_posts_path first_user }
 
     it 'displays a user\'s profile picture' do
@@ -103,7 +102,7 @@ RSpec.describe Post, type: :system do
     end
 
     it 'displays a user\'s name' do
-        expect(page).to have_content(first_user.name)
+      expect(page).to have_content(first_user.name)
     end
 
     it ' displays the number of posts written by a user' do
@@ -111,68 +110,67 @@ RSpec.describe Post, type: :system do
     end
 
     it 'displays title of a post' do
-        expect(page).to have_content(first_user.posts.first.title)
+      expect(page).to have_content(first_user.posts.first.title)
     end
 
     it 'diplays part of the post\'s body' do
-        expect(page).to have_content(first_user.posts.first.text[0..100])
-    end
-    
-    it 'displays the first comments on a post' do
-        expect(page).to have_content(first_user.posts.first.comments.first.user.name)
-        expect(page).to have_content(first_user.posts.first.comments.first.text[0..30])
+      expect(page).to have_content(first_user.posts.first.text[0..100])
     end
 
-    it "displays pagination when there are more posts" do
+    it 'displays the first comments on a post' do
+      expect(page).to have_content(first_user.posts.first.comments.first.user.name)
+      expect(page).to have_content(first_user.posts.first.comments.first.text[0..30])
+    end
+
+    it 'displays pagination when there are more posts' do
       next_page_url = user_posts_path(first_user, page: 2)
-      
-      visit next_page_url    
+
+      visit next_page_url
 
       expect(next_page_url).to match(%r{/users/\d+/posts\?page=\d+})
     end
 
     it 'displays the number of likes for a post' do
-        expect(page).to have_content("likes:#{first_user.posts.first.likes_counter}")
+      expect(page).to have_content("likes:#{first_user.posts.first.likes_counter}")
     end
 
     it 'displays how many comments a post has' do
-        expect(page).to have_content("comments:#{first_user.posts.first.comments_counter}")
+      expect(page).to have_content("comments:#{first_user.posts.first.comments_counter}")
     end
   end
 
   context 'Posts show page' do
     before { visit user_post_path(user_id: first_user.id, id: post_one.id) }
 
- it 'displays the title of a post' do
-   expect(page).to have_content(post_one.title)
- end
+    it 'displays the title of a post' do
+      expect(page).to have_content(post_one.title)
+    end
 
- it 'displays the author of post' do
-   expect(page).to have_content(post_one.user.name)
- end
- it 'displays number of comments about a post' do
-   expect(page).to have_content(post_one.comments_counter)
- end
+    it 'displays the author of post' do
+      expect(page).to have_content(post_one.user.name)
+    end
+    it 'displays number of comments about a post' do
+      expect(page).to have_content(post_one.comments_counter)
+    end
 
- it 'displays the number of likes on the post' do
-   expect(page).to have_content(post_one.likes_counter)
- end
+    it 'displays the number of likes on the post' do
+      expect(page).to have_content(post_one.likes_counter)
+    end
 
- it 'displays the body of a post' do
-   expect(page).to have_content(post_one.text)
- end
+    it 'displays the body of a post' do
+      expect(page).to have_content(post_one.text)
+    end
 
- it 'displays the username of a commentor' do
-   post_one.comments.each do |comment|
-     expect(page).to have_content(comment.user.name)
-   end
- end
+    it 'displays the username of a commentor' do
+      post_one.comments.each do |comment|
+        expect(page).to have_content(comment.user.name)
+      end
+    end
 
- it 'displays comment left by a commentor' do
-   post_one.comments.each do |comment|
-     expect(page).to have_content(comment.text)
-   end
- end
-end
-
+    it 'displays comment left by a commentor' do
+      post_one.comments.each do |comment|
+        expect(page).to have_content(comment.text)
+      end
+    end
+  end
 end
