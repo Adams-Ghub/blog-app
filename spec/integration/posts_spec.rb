@@ -139,4 +139,40 @@ RSpec.describe Post, type: :system do
         expect(page).to have_content("comments:#{first_user.posts.first.comments_counter}")
     end
   end
+
+  context 'Posts show page' do
+    before { visit user_post_path(user_id: first_user.id, id: post_one.id) }
+
+ it 'displays the title of a post' do
+   expect(page).to have_content(post_one.title)
+ end
+
+ it 'displays the author of post' do
+   expect(page).to have_content(post_one.user.name)
+ end
+ it 'displays number of comments about a post' do
+   expect(page).to have_content(post_one.comments_counter)
+ end
+
+ it 'displays the number of likes on the post' do
+   expect(page).to have_content(post_one.likes_counter)
+ end
+
+ it 'displays the body of a post' do
+   expect(page).to have_content(post_one.text)
+ end
+
+ it 'displays the username of a commentor' do
+   post_one.comments.each do |comment|
+     expect(page).to have_content(comment.user.name)
+   end
+ end
+
+ it 'displays comment left by a commentor' do
+   post_one.comments.each do |comment|
+     expect(page).to have_content(comment.text)
+   end
+ end
+end
+
 end
