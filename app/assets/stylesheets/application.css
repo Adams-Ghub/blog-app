@@ -143,3 +143,10 @@
   min-height: 12em;
   padding: 1em;
 }
+
+.pagination-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+ 
+}

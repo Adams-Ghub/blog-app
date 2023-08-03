@@ -13,5 +13,8 @@
         </a>        
         <%end%>
      </section>  
+     <div class='pagination-container'>
+        <%= will_paginate @posts, renderer: WillPaginate::ActionView::LinkRenderer, next_label: 'Next' %>
+     </div>
     
 </div>
