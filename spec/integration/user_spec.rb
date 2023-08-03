@@ -84,4 +84,64 @@ RSpec.describe User, type: :system do
 
   end
 
+  context 'show page tests' do
+    subject{person_two}
+    before do
+      post_one
+      post_two
+      post_three
+      visit user_path person_two
+    end
+
+    it 'display user profile picture' do
+      profile_pic = find('.profile-image')
+      
+      expect(profile_pic).to be_visible
+      expect(profile_pic['src']).to eq subject.photo
+    end
+
+    it 'display the username of a user' do
+        expect(page).to have_content(subject.name)
+    end
+
+    it 'display number of posts made by a user' do
+      expect(page).to have_content subject.post_counter
+    end
+    
+    it 'display bio of a user' do
+      expect(page).to have_content subject.bio
+    end
+
+    it 'displays user\'s first three post' do
+      expect(page).to have_content subject.posts[0].title
+      expect(page).to have_content subject.posts[1].title
+      expect(page).to have_content subject.posts[2].title
+    end
+
+    it 'displays see all posts button' do  
+      expect(page).to have_link('see all posts')
+    end
+
+    it 'takes me to posts show page when I click a post' do
+      post_two_show_page_url= "#{Capybara.app_host}/users/#{person_two.id}/posts/#{person_two.posts.first.id}"
+      
+      all('a.link-to-specific-post').each do |link|       
+        link.click
+        expect(page).to have_current_path(post_two_show_page_url)
+        expect(page).to have_content(person_two.posts.first.title)
+      end
+
+   
+      
+    end
+
+    it 'redirects to the post index page when the see all Posts button is clicked' do
+      all_posts_url = "#{Capybara.app_host}/users/#{subject.id}/posts"
+      click_link 'see all posts'
+      
+      expect(page).to have_current_path(all_posts_url)
+    end
+
+  end
+  
 end
