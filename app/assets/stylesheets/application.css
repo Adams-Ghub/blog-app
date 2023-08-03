@@ -144,9 +144,8 @@
   padding: 1em;
 }
 
-.pagination-container{
+.pagination-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
- 
 }
