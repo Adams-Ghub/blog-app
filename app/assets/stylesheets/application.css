@@ -149,3 +149,38 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.login-form-main-container,.sign-up-form-main-container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form-container,.sign-up-form-container{
+  width: 25%;
+}
+
+.password-label-input-container, 
+.email-label-input-container{
+  margin-bottom: 2em;
+}
+
+.photo-label-input-container,
+.sign-up-password-label-input-container, 
+.sign-up-email-label-input-container{
+  margin-bottom: 1em;
+}
+
+
+.password-input,.email-input{
+  width: 96%;
+  padding: 0.3em;
+  margin: 0;
+}
+
+.login-button,.sign-up-button{
+  width: 100%;
+  padding: 0.3em;
+  margin: 1em 0;
+}
