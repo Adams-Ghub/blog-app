@@ -23,17 +23,17 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'sign-up-email-input' %>
   </div>
 
-  <div class="field">
+  <div class="field sign-up-password-input-label-container">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'sign-up-password-input' %>
   </div>
 
-  <div class="field">
+  <div class="field sign-up-confirm-password-input-label-container">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'sign-up-password-confirm-input' %>
   </div>
 
   <div class="actions">
