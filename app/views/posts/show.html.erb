@@ -6,7 +6,7 @@
                 <%=@post.title%> by  <%=@user.name%>
             </div>
             <div class='likes-comments-count-specific-post'>
-                comments:<%=@post.comments_counter%>, likes:<%=@post.likes_counter%>
+                comments:<%=@post.comments.count%>, likes:<%=@post.likes.count%>
             </div>
         </div>
         <p>
@@ -16,6 +16,9 @@
             <%= form_with url: user_post_likes_path(@post.author_id, @post) do |f| %>
                 <%= f.submit 'Like', class: 'like_button' %>
             <% end %>
+            <% if can?(:destroy, @post) %>
+                <%= button_to "Delete", user_post_path(author_id: @post.user.id, id: @post.id), method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } %>
+            <% end %>
        </div>
    </div>
     <div class='specific-post-comments-container'>
@@ -23,7 +26,14 @@
             <p>No comments available</p>
         <%else%>
             <%@post.comments.each do |comment| %>
-                <%=render partial:'shared/comment_card', locals:{comment:comment, user:comment.user}%>
+                <div class='comment-delete-btn-contianer'>
+                <%=render partial:'shared/comment_card', locals:{comment:comment, user:comment.user }%>
+               
+                    <% if can?(:destroy, comment) %>
+                        <%= button_to "Delete", user_post_comment_path(user_id: @post.user.id, post_id: @post.id, id: comment.id), method: :delete, data: { confirm: 'Deleted comment cannot be recovered' }, class:'comment-delete-button' %>
+                    <% end %>
+             
+                <div>
             <%end%>
         <%end%>
     
