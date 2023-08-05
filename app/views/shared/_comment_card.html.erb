@@ -1,3 +1,9 @@
-<div >
-    <%=user.name%>:<%=comment.text %>
-</div>
+
+    <div>
+        <% if comment %>
+            <%= user.name %>: <%= comment.text %>
+        <% else %>
+            Comment not found
+        <% end %>
+    </div>
+    
